@@ -55,12 +55,62 @@ let typing = (text = '', text2 = '', time = 200, tag = '') => {
 				tag.innerHTML = '';
 				i = 0;
 				evaluatedText === text ? evaluatedText = text2 : evaluatedText = text
-				console.log(evaluatedText)
 				j = evaluatedText.length;
 				arrayCharacters = evaluatedText.split('');
-				console.log(arrayCharacters)
 			}
 		}
 	}, time);
 }
 typing('a developer      ', 'Larry Jácobo      ', 150, machine1)
+
+// Counting
+
+const experienceCount = document.getElementsByClassName("experience-count")[0]
+const happyCount = document.getElementsByClassName("happy-count")[0]
+const projectCount = document.getElementsByClassName("project-count")[0]
+const awardCount = document.getElementsByClassName("award-count")[0]
+
+// const counting = (tag, value, speed) => {
+// 	let i = 0;
+// 	const printValue = setInterval(() => {
+// 		if (i <= value) {
+// 			tag.innerHTML = i;
+// 			console.log(i)
+// 			i++
+// 		} else {
+// 			clearInterval();
+// 		}
+
+// 	}, speed);
+
+// }
+// experienceCount.addEventListener("click", counting(experienceCount, goalExperience, 2000 / goalExperience));
+// happyCount.addEventListener("click", counting(happyCount, goalHappy, 2000 / goalHappy));
+
+const isIntersecting = (entry) => {
+	return entry.isIntersecting;
+}
+
+const counting = (entry) => {
+	let i = 0;
+	let value = parseInt(entry.target.dataset.value);
+	let speed = parseInt(entry.target.getAttribute("data-speed"));
+	const printValue = setInterval(() => {
+		if (i <= value) {
+			entry.target.innerHTML = i;
+			i++
+		} else {
+			clearInterval();
+		}
+
+	}, speed * 1000 / value);
+	observer.unobserve(entry.target)
+}
+
+const observer = new IntersectionObserver((entries) => {
+	entries.filter(isIntersecting).forEach(counting)
+});
+observer.observe(experienceCount);
+observer.observe(happyCount);
+observer.observe(projectCount);
+observer.observe(awardCount);
