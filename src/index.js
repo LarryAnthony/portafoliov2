@@ -18,8 +18,10 @@ newList.forEach(element => {
 		})
 		const hash = event.target.hash
 		const elemento = element.querySelectorAll(`a[href="${hash}"]`)
-		elemento[0].classList.add("green-text");
-		elemento[0].setAttribute("style", "font-weight: bold")
+		if (element[0]) {
+			elemento[0].classList.add("green-text");
+			elemento[0].setAttribute("style", "font-weight: bold")
+		}
 	})
 });
 window.onload = function (event) {
@@ -70,23 +72,6 @@ const happyCount = document.getElementsByClassName("happy-count")[0]
 const projectCount = document.getElementsByClassName("project-count")[0]
 const awardCount = document.getElementsByClassName("award-count")[0]
 
-// const counting = (tag, value, speed) => {
-// 	let i = 0;
-// 	const printValue = setInterval(() => {
-// 		if (i <= value) {
-// 			tag.innerHTML = i;
-// 			console.log(i)
-// 			i++
-// 		} else {
-// 			clearInterval();
-// 		}
-
-// 	}, speed);
-
-// }
-// experienceCount.addEventListener("click", counting(experienceCount, goalExperience, 2000 / goalExperience));
-// happyCount.addEventListener("click", counting(happyCount, goalHappy, 2000 / goalHappy));
-
 const isIntersecting = (entry) => {
 	return entry.isIntersecting;
 }
@@ -114,3 +99,15 @@ observer.observe(experienceCount);
 observer.observe(happyCount);
 observer.observe(projectCount);
 observer.observe(awardCount);
+
+const filter = document.getElementsByClassName("nav-link")
+const filterArray = [...filter];
+filterArray.forEach((option) => {
+	option.addEventListener("click", function () {
+		const arrayElement = [...option.parentElement.parentElement.children]
+		arrayElement.forEach(elementA => {
+			elementA.children[0].classList.remove("active");
+		})
+		option.classList.add("active");
+	});
+});
