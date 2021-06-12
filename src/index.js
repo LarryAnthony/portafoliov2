@@ -16,12 +16,10 @@ newList.forEach(element => {
 			elementA.children[0].removeAttribute("style", "font-weight: bold");
 			elementA.children[0].classList.remove("green-text");
 		})
-		const hash = event.target.hash
-		const elemento = element.querySelectorAll(`a[href="${hash}"]`)
-		if (element[0]) {
-			elemento[0].classList.add("green-text");
-			elemento[0].setAttribute("style", "font-weight: bold")
-		}
+		const hash = event.target.hash;
+		const elemento = element.querySelectorAll(`a[href="${hash}"]`);
+		elemento[0].classList.add("green-text");
+		elemento[0].setAttribute("style", "font-weight: bold");
 	})
 });
 window.onload = function (event) {
@@ -111,3 +109,35 @@ filterArray.forEach((option) => {
 		option.classList.add("active");
 	});
 });
+
+const carrusel = document.getElementsByClassName("card-carrusel");
+const numberCards = carrusel.length;
+let numberButtons;
+const resizeObserver = new ResizeObserver(entries => {
+	if (window.innerWidth <= 992) {
+		numberButtons = numberCards
+	} else {
+		numberButtons = Math.ceil(numberCards / 2);
+	}
+
+	let divCarruselButton = document.getElementsByClassName("select-carrusel")[0];
+	divCarruselButton.textContent = "";
+	for (let i = 1; i <= numberButtons; i++) {
+		let elementCarruselButton = document.createElement("div")
+		elementCarruselButton.classList.add("button-carrusel"); //<div class="button-carrusel button1"><span></span></div>
+		const elementCarruselSpan = document.createElement("span");
+		elementCarruselButton.appendChild(elementCarruselSpan);
+		divCarruselButton.appendChild(elementCarruselButton)
+	}
+	let selectCarruselArray = document.getElementsByClassName("button-carrusel");
+	let j = 0;
+	[...selectCarruselArray].forEach((element) => {
+		element.addEventListener("click", () => {
+			j++
+			console.log("H", j);
+		});
+	});
+});
+const cuerpo = document.getElementsByTagName("body");
+resizeObserver.observe(...cuerpo);
+
