@@ -44,7 +44,6 @@
 					<ul>
 						<li><a href="#home">Home</a></li>
 						<li><a href="#about">About Me</a></li>
-						<li><a href="#whatido">What I Do</a></li>
 						<li><a href="#resume">Resume</a></li>
 						<li><a href="#portafolio">Portafolio</a></li>
 						<li><a href="#testimonial">Testimonial</a></li>
@@ -66,8 +65,10 @@
 					<button>Hire Me</button>
 				</div>
 				<div class="arrow">
-					<div class="arrow-left arrow-child"></div>
-					<div class="arrow-right arrow-child"></div>
+					<a href="#about">
+						<div class="arrow-left arrow-child"></div>
+						<div class="arrow-right arrow-child"></div>
+					</a>
 				</div>
 			</div>
 			<div class="image-intro"></div>
@@ -96,7 +97,9 @@
 						<div class="details-about">
 							<p><span>Name:</span> Larry Jácobo</p>
 							<p class="email-color"><span>Email:</span> ajacobozare@gmail.com</p>
-							<p><span>Age:</span> 33</p>
+							<p><span>Age:</span>
+								<span id="age"></span>
+							</p>
 							<p><span>From:</span> Trujillo, Perú</p>
 							<button class="button-cv">Download CV</button>
 						</div>
@@ -418,7 +421,7 @@
 						3
 					</div>
 				</div>
-				<div class="card-carrusel card4">
+				<div class="card-carrusel card3">
 					<div class="header-card">
 						<img src="../src/assets/images/client1.jpg" alt="client">
 						<div class="header-card-content">
@@ -434,7 +437,7 @@
 						4
 					</div>
 				</div>
-				<div class="card-carrusel card4">
+				<div class="card-carrusel card3">
 					<div class="header-card">
 						<img src="../src/assets/images/client1.jpg" alt="client">
 						<div class="header-card-content">
@@ -447,7 +450,39 @@
 							priced simply dummy text of the printing and typesetting industry."</p>
 					</div>
 					<div class="start-card">
-						4
+						5
+					</div>
+				</div>
+				<div class="card-carrusel card3">
+					<div class="header-card">
+						<img src="../src/assets/images/client1.jpg" alt="client">
+						<div class="header-card-content">
+							<h6>Dennis Jacques</h6>
+							<h6>User from USA</h6>
+						</div>
+					</div>
+					<div class="content-card">
+						<p>"Only trying it out since a few days. But up to now excellent. Seems to work flawlessly.
+							priced simply dummy text of the printing and typesetting industry."</p>
+					</div>
+					<div class="start-card">
+						6
+					</div>
+				</div>
+				<div class="card-carrusel card3">
+					<div class="header-card">
+						<img src="../src/assets/images/client1.jpg" alt="client">
+						<div class="header-card-content">
+							<h6>Dennis Jacques</h6>
+							<h6>User from USA</h6>
+						</div>
+					</div>
+					<div class="content-card">
+						<p>"Only trying it out since a few days. But up to now excellent. Seems to work flawlessly.
+							priced simply dummy text of the printing and typesetting industry."</p>
+					</div>
+					<div class="start-card">
+						7
 					</div>
 				</div>
 			</div>
@@ -457,6 +492,47 @@
 				<!-- <div class="button-carrusel button1"><span></span></div> -->
 			</div>
 		</div>
+		<div id="contact" class="margin-body">
+			<div class="title-section">
+				<h2>Get In Touch</h2>
+			</div>
+			<div class="form">
+				<h6>SEND US A NOTE</h6>
+				<form id="send-email">
+					<div class="first-form">
+						<div class="nameForm">
+							<label for="name-form">Name</label>
+							<input id="name-form" type="text" name="name" placeholder="Name">
+						</div>
+						<div class="emailForm">
+							<label for="email-form">Email</label>
+							<input id="email-form" type="email" name="email" placeholder="Email">
+						</div>
+					</div>
+					<div class="contentForm">
+						<label for="content-form">Content</label>
+						<textarea id="content-form" cols="30" rows="10" placeholder="Tell us more about your needs..."
+							name="content"></textarea>
+					</div>
+					<div class="spinner">
+						<div class="bounce1"></div>
+						<div class="bounce2"></div>
+						<div class="bounce3"></div>
+					</div>
+					<div id="errorMessage">
+					</div>
+					<button id="button-form" class="button-disable" disabled>Send Message</button>
+				</form>
+			</div>
+		</div>
+		<footer class="footer margin-body">
+			<p>
+				Copyright © <span id="year"></span> <span class="name-footer">Larry</span>. All Rights reserved.
+			</p>
+			<p>
+				Terms & Policy | Disclaimer.
+			</p>
+		</footer>
 	</section>
 	<script src="../src/index.js"></script>
 </body>
