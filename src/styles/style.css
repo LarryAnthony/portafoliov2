@@ -14,6 +14,9 @@
 	box-sizing: border-box;
 	transition: all 1s;
 }
+html {
+	scroll-behavior: smooth;
+}
 body {
 	overflow-x: hidden;
 }
@@ -852,7 +855,10 @@ label {
 		transform: scale(1);
 	}
 }
-@media (min-width: 768px) {
+@media (min-width: 500px) {
+	.margin-body {
+		padding: 72px 60px;
+	}
 	.content-resume div {
 		flex-basis: 50%;
 		box-sizing: border-box;

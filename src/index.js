@@ -30,12 +30,6 @@ window.onload = function (event) {
 		elemento[0].setAttribute("style", "font-weight: bold")
 	}
 }
-// action to row
-// document.getElementsByClassName("arrow")[0].addEventListener("click", function (event) {
-// 	window.scrollTo({ top: 100 });
-// 	window.location.hash = "about";
-// })
-// Adding text
 let machine1 = document.getElementById('type');
 let typing = (text = '', text2 = '', time = 200, tag = '') => {
 	let arrayCharacters = text.split('');
@@ -109,6 +103,18 @@ filterArray.forEach((option) => {
 		option.classList.add("active");
 	});
 });
+
+// Bar percent
+
+const barPercentNode = document.querySelectorAll(".bar .increasing-bar");
+const barPercentArray = [...barPercentNode];
+
+barPercentArray.forEach((element) => {
+	const percentValue = element.dataset.percent;
+	element.style.width = percentValue;
+})
+
+// Carrousel
 
 const carrusel = document.getElementsByClassName("card-carrusel");
 const numberCards = carrusel.length;
@@ -273,4 +279,5 @@ async function sendEmail(e) {
 			pSent.remove();
 		}, 3000);
 	}, 1000);
+	form.reset();
 }
