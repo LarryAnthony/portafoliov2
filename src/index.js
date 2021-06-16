@@ -1,6 +1,10 @@
+import './style/style.css';
+import './libs/iconoPortafolioLarry-v1.0/style.css';
+
 let hamburguer = document.getElementById("hamburguer-box");
 let lines = document.getElementsByClassName("line-hamburguer");
 let toggleBar = document.getElementById("toggle-bar");
+let imageIntro = document.querySelector(".image-intro");
 hamburguer.addEventListener("click", function () {
 	lines[1].classList.toggle("middle-line");
 	lines[0].classList.toggle("first-line");
@@ -23,6 +27,8 @@ newList.forEach(element => {
 	})
 });
 window.onload = function (event) {
+	imageIntro.style.backgroundImage = "url('assets/images/fondo1.jpg')";
+	console.log(imageIntro)
 	if (event.target.location.hash) {
 		const hash = event.target.location.hash
 		const elemento = document.querySelectorAll(`a[href="${hash}"]`);
@@ -166,7 +172,7 @@ resizeObserver.observe(...cuerpo);
 
 const date = new Date();
 const year = date.getFullYear();
-const birth = new Date(1988, 04, 23)
+const birth = new Date(1988, 4, 23)
 const age = Math.floor((date - birth) / 1000 / 60 / 60 / 24 / 365);
 const ageSpan = document.getElementById("age");
 ageSpan.textContent = age;
