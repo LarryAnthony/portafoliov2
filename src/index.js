@@ -1,7 +1,7 @@
 import './style/style.css';
 import './libs/iconoPortafolioLarry-v1.0/style.css';
 
-const API = process.env.API;
+const API_KEY = process.env.API_KEY;
 
 let hamburguer = document.getElementById("hamburguer-box");
 let lines = document.getElementsByClassName("line-hamburguer");
@@ -258,7 +258,7 @@ async function sendEmail(e) {
 		remitentes: "ajacobozare@gmail.com",
 		cuerpo: `Email send from ${email} with this content: ${content}`
 	};
-	const response = await fetch(API, {
+	const response = await fetch(API_KEY, {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
