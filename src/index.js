@@ -1,6 +1,8 @@
 import './style/style.css';
 import './libs/iconoPortafolioLarry-v1.0/style.css';
 
+const API = process.env.API;
+
 let hamburguer = document.getElementById("hamburguer-box");
 let lines = document.getElementsByClassName("line-hamburguer");
 let toggleBar = document.getElementById("toggle-bar");
@@ -256,7 +258,7 @@ async function sendEmail(e) {
 		remitentes: "ajacobozare@gmail.com",
 		cuerpo: `Email send from ${email} with this content: ${content}`
 	};
-	const response = await fetch("https://new.larry-jacobo.com/api/email", {
+	const response = await fetch(API, {
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json'
