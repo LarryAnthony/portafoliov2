@@ -34,7 +34,6 @@ newList.forEach(element => {
 });
 window.onload = function (event) {
 	imageIntro.style.backgroundImage = "url('assets/images/fondo1.jpg')";
-	console.log(imageIntro)
 	if (event.target.location.hash) {
 		const hash = event.target.location.hash
 		const elemento = document.querySelectorAll(`a[href="${hash}"]`);
@@ -158,7 +157,6 @@ const resizeObserver = new ResizeObserver(entries => {
 				child.classList.remove("active");
 			});
 			const valorDataset = parseInt(element.dataset.number);
-			console.log(valorDataset);
 			element.classList.add("active");
 			[...carrusel].forEach((elementCard) => {
 				let valorLeft;
@@ -168,7 +166,6 @@ const resizeObserver = new ResizeObserver(entries => {
 					valorLeft = (-(valorDataset - 1)) * 100;
 				}
 				elementCard.style.left = `${valorLeft}%`;
-				console.log("ok", valorLeft)
 			});
 		});
 	});
