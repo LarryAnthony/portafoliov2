@@ -169,6 +169,7 @@ header h1 {
 	margin-top: 66px;
 }
 .image-intro {
+	/* background-image: url("assets/images/fondo1.jpg"); */
 	background-repeat: no-repeat;
 	background-size: cover;
 	width: 100vw;
@@ -243,8 +244,8 @@ header h1 {
 	font-weight: 400;
 }
 .description button {
+	display: flex;
 	margin: 20px auto;
-	padding: 13px 25px;
 	font-size: 1.6rem;
 	background-color: transparent;
 	border-radius: 20px;
@@ -254,7 +255,18 @@ header h1 {
 }
 .description button:hover {
 	background-color: var(--secondary-color);
+}
+.description button:hover a {
 	color: white;
+}
+.description button a {
+	text-decoration: none;
+	padding: 13px 25px;
+	font-size: 1.6rem;
+	width: fit-content;
+	height: fit-content;
+	color: var(--secondary-color);
+	font-weight: bold;
 }
 .arrow {
 	height: 35px;

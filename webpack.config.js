@@ -67,6 +67,18 @@ module.exports = {
 				{
 					from: path.resolve(__dirname, "src", "assets/images"),
 					to: "assets/images"
+				},
+				{
+					from: path.resolve(__dirname, "src", "assets/icons"),
+					to: "assets/icons"
+				},
+				{
+					from: path.resolve(__dirname, "./", "manifest.json"),
+					to: "./"
+				},
+				{
+					from: path.resolve(__dirname, "./", "sw.js"),
+					to: "./"
 				}
 			]
 		}),

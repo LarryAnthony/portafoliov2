@@ -3,6 +3,10 @@ import './libs/iconoPortafolioLarry-v1.0/style.css';
 
 const API_KEY = process.env.API_KEY;
 
+if (navigator.serviceWorker) {
+	navigator.serviceWorker.register('sw.js');
+}
+
 let hamburguer = document.getElementById("hamburguer-box");
 let lines = document.getElementsByClassName("line-hamburguer");
 let toggleBar = document.getElementById("toggle-bar");
@@ -139,6 +143,9 @@ const resizeObserver = new ResizeObserver(entries => {
 	for (let i = 1; i <= numberButtons; i++) {
 		let elementCarruselButton = document.createElement("div")
 		elementCarruselButton.classList.add("button-carrusel"); //<div class="button-carrusel button1"><span></span></div>
+		if (i === 1) {
+			elementCarruselButton.classList.add("active");
+		}
 		elementCarruselButton.dataset.number = i;
 		const elementCarruselSpan = document.createElement("span");
 		elementCarruselButton.appendChild(elementCarruselSpan);
