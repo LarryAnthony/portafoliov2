@@ -1,5 +1,7 @@
 import './style/style.css';
 import './libs/iconoPortafolioLarry-v1.0/style.css';
+import '@dmuy/toast/dist/mdtoast.css';
+import mdtoast from '@dmuy/toast';
 
 const API_KEY = process.env.API_KEY;
 
@@ -293,3 +295,22 @@ async function sendEmail(e) {
 	}, 1000);
 	form.reset();
 }
+
+function isOnline() {
+	if (navigator.onLine) {
+		spinner.style.display = "none";
+		mdtoast('Online', {
+			interaction: true,
+			actionText: 'OK'
+		});
+	} else {
+		mdtoast('Offline', {
+			interaction: true,
+			actionText: 'OK',
+			type: 'warning'
+		});
+	}
+}
+
+window.addEventListener('online', isOnline());
+window.addEventListener('offline', isOnline());
