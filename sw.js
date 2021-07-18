@@ -39,7 +39,9 @@ function guardarMensaje(mensaje) {
 }
 
 function manejoApiMensajes(cacheName, req) {
-	if (req.clone().method === 'POST') {
+	if ((req.url.indexOf('/api/notification/key') >= 0) || req.url.indexOf('/api/notification/subscribe') || req.url.indexOf('/api/notification/push') >= 0) {
+		return fetch(req);
+	} else if (req.clone().method === 'POST') {
 		// POSTEO de nuevos mensajes
 		if (self.registration.sync) {
 			return req.clone().text().then(body => {
@@ -147,3 +149,66 @@ function postearMensajes() {
 		return Promise.all(posteos);
 	});
 }
+
+// Escuchas push
+
+self.addEventListener('push', e => {
+	// console.log(e);
+	// console.log(e.data.text());
+
+	const data = JSON.parse(e.data.text());
+	// console.log(data);
+	const title = data.titulo;
+	const options = {
+		body: data.cuerpo,
+		icon: './assets/images/anthonyopt.jpg',
+		badge: './assets/images/anthonyopt.jpg',
+		// image: 'url',
+		vibrate: [250, 200, 150, 150, 100, 50, 450, 450, 150, 150, 100, 50, 900, 2250],
+		openUrl: '/',
+		data: {
+			url: '/',
+			id: data.usuario
+		},
+		actions: [
+			{
+				action: 'action 1',
+				title: 'Action 1',
+				icon: './assets/images/client1.jpg'
+			},
+			{
+				action: 'action 2',
+				title: 'Action 2',
+				icon: './assets/images/fondo1.jpg'
+			}
+		]
+
+	}
+
+	e.waitUntil(self.registration.showNotification(title, options))
+});
+
+// Cierra las notificaciones
+self.addEventListener('notificationclose', e => {
+	// console.log('Notificación cerrada', e);
+});
+
+self.addEventListener('notificationclick', e => {
+	const notificacion = e.notification;
+	const accion = e.action;
+	// console.log(notificacion, accion)
+	const respuesta = clients.matchAll()
+		.then(clientes => {
+			let cliente = clientes.find(c => {
+				return c.visibilityState === 'visible';
+			});
+			if (cliente !== undefined) {
+				cliente.navigate(notificacion.data.url);
+				cliente.focus();
+			} else {
+				clients.openWindow(notificacion.data.url);
+			}
+			return notificacion.close();
+		});
+	e.waitUntil(respuesta);
+})

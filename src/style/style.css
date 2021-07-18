@@ -168,10 +168,34 @@ header h1 {
 }
 
 /* Body */
-
+#button-noti {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-top: -50px;
+}
+.button-wrap {
+	margin: 5px auto;
+	width: 80%;
+	border-radius: 5px;
+	border: none;
+	padding: 5px;
+	color: white;
+	font-size: 1.4rem;
+}
+.btn-noti-activated {
+	background-color: var(--secondary-color);
+}
+.btn-noti-disactivated {
+	background-color: red;
+}
+.oculto {
+	display: none;
+}
 #wrap {
 	margin-top: 66px;
 }
+
 .image-intro {
 	/* background-image: url("assets/images/fondo1.jpg"); */
 	background-repeat: no-repeat;

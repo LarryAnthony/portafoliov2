@@ -4,9 +4,16 @@ import '@dmuy/toast/dist/mdtoast.css';
 import mdtoast from '@dmuy/toast';
 
 const API_KEY = process.env.API_KEY;
-
+const URL = process.env.URL_NOTIFICACION;
+let swReg;
 if (navigator.serviceWorker) {
-	navigator.serviceWorker.register('sw.js');
+	window.addEventListener('load', function () {
+		navigator.serviceWorker.register('sw.js').then(function (reg) {
+			swReg = reg;
+			swReg.pushManager.getSubscription().then(verificaSubscripcion);
+		})
+	});
+
 }
 
 let hamburguer = document.getElementById("hamburguer-box");
@@ -312,5 +319,108 @@ function isOnline() {
 	}
 }
 
-window.addEventListener('online', isOnline());
-window.addEventListener('offline', isOnline());
+window.addEventListener('online', isOnline);
+window.addEventListener('offline', isOnline);
+
+isOnline();
+
+
+// Notificaciones
+let buttonActivada = document.querySelector('.btn-noti-activated');
+let buttonDesactivada = document.querySelector('.btn-noti-disactivated');
+
+function verificaSubscripcion(activadas) {
+	if (activadas) {
+		buttonActivada.classList.remove('oculto');
+		buttonDesactivada.classList.add('oculto');
+	} else {
+		buttonActivada.classList.add('oculto');
+		buttonDesactivada.classList.remove('oculto');
+	}
+}
+
+function enviarNotificacion() {
+	const notificacionOpts = {
+		body: 'Este es el cuerpo de la notificación',
+		icon: 'assets/images/anthonyopt.jpg'
+	}
+	const n = new Notification('Hola mundo', notificacionOpts);
+
+	n.onclick = () => {
+		console.log('click');
+	}
+}
+
+function notificarme() {
+	if (!window.Notification) {
+		console.log('este navegador no recibe notificaciones');
+		return;
+	}
+	if (Notification.permission === 'granted') {
+		enviarNotificacion();
+	} else if (Notification.permission !== 'denied' || Notification.permission !== 'default') {
+		Notification.requestPermission(function (permission) {
+			console.log(permission);
+			if (permission === 'granted') {
+				enviarNotificacion();
+			}
+		});
+	}
+}
+// notificarme();
+
+function getPublicKey() {
+	return fetch(`${URL}/api/notification/key`, {
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'api-key': 'c9a95004-ac91-4349-97c3-d5928d436669'
+		},
+		method: "GET",
+		mode: 'cors', // no-cors, *cors, same-origin
+		cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+		credentials: 'same-origin',
+	})
+		.then(res => res.arrayBuffer())
+		.then(key => new Uint8Array(key));
+}
+
+// getPublicKey().then(console.log);
+
+buttonDesactivada.addEventListener('click', function () {
+	if (!swReg) return console.log('No hay registro de SW');
+
+	getPublicKey().then(function (key) {
+		swReg.pushManager.subscribe({
+			userVisibleOnly: true,
+			applicationServerKey: key
+		})
+			.then(res => res.toJSON())
+			.then((suscripcion) => {
+				fetch(`${URL}/api/notification/subscribe`, {
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json',
+						'api-key': 'c9a95004-ac91-4349-97c3-d5928d436669'
+					},
+					method: "POST",
+					mode: 'cors', // no-cors, *cors, same-origin
+					cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+					credentials: 'same-origin',
+					body: JSON.stringify(suscripcion)
+				})
+					.then(verificaSubscripcion)
+					.catch(cancelarSuscripcion)
+			})
+	});
+})
+
+function cancelarSuscripcion() {
+	swReg.pushManager.getSubscription().then(subs => {
+		subs.unsubscribe().then(() => verificaSubscripcion(false));
+	});
+}
+
+buttonActivada.addEventListener('click', function () {
+	cancelarSuscripcion();
+});
