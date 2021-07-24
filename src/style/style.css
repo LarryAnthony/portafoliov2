@@ -939,10 +939,10 @@ label {
 	}
 	#first-header {
 		padding: 24px;
-		height: calc(100% - 48px);
+		height: 100%;
 	}
 	#toggle-bar {
-		height: auto;
+		min-height: 45%;
 		background-color: #111418;
 		order: 3;
 		margin-top: 15px;
@@ -966,7 +966,7 @@ label {
 		order: 4;
 		margin: 10px auto;
 		display: flex;
-		margin-top: 30px;
+		margin-bottom: 20px;
 	}
 	.social-network {
 		margin: auto;

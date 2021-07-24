@@ -1,6 +1,6 @@
 importScripts('https://cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js')
 const API_KEY = 'https://new.larry-jacobo.com/api/email';
-const STATIC_CACHE = 'static-v3';
+const STATIC_CACHE = 'static-v7';
 const DYNAMIC_CACHE = 'dynamic-v1';
 const INMUTABLE_CACHE = 'inmutable-v1';
 
@@ -72,6 +72,8 @@ const APP_SHELL = [
 	'assets/images/fondo1.jpg',
 	'assets/images/anthonyopt.jpg',
 	'assets/images/anthonyfavicon.png',
+	'main.js',
+	'assets/main.css'
 ]
 
 const APP_SHELL_INMUTABLE = [
@@ -82,14 +84,22 @@ self.addEventListener('install', e => {
 	const cacheStatic = caches.open(STATIC_CACHE).then(cache => {
 		cache.addAll(APP_SHELL);
 	});
+	const cacheInmutable = caches.open(INMUTABLE_CACHE).then(cache => {
+		cache.addAll(APP_SHELL_INMUTABLE);
+	});
 
-	e.waitUntil(Promise(cacheStatic));
+
+	e.waitUntil(Promise([cacheStatic, cacheInmutable]));
 });
 
 self.addEventListener('activate', e => {
+	console.log('Hi')
 	const respuesta = caches.keys().then(keys => {
 		keys.forEach(key => {
 			if (key !== STATIC_CACHE && key.includes('static')) {
+				return caches.delete(key);
+			}
+			if (key !== DYNAMIC_CACHE && key.includes('dynamic')) {
 				return caches.delete(key);
 			}
 		});
@@ -101,12 +111,14 @@ self.addEventListener('fetch', e => {
 	let respuesta;
 	const urls = e.request.url;
 	if (e.request.url.includes('/api')) {
-		return manejoApiMensajes(DYNAMIC_CACHE, e.request)
-
+		respuesta = manejoApiMensajes(DYNAMIC_CACHE, e.request)
 	} else {
 		respuesta = caches.match(e.request).then(res => {
 			if (res) {
-				actualizarCacheEstatico(STATIC_CACHE, e.request, APP_SHELL_INMUTABLE);
+				if (APP_SHELL.includes(res.url)) {
+					actualizarCacheEstatico(STATIC_CACHE, e.request, APP_SHELL_INMUTABLE);
+					return res;
+				}
 				return res;
 			} else {
 				return fetch(e.request).then(newRes => {

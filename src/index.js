@@ -20,6 +20,7 @@ let hamburguer = document.getElementById("hamburguer-box");
 let lines = document.getElementsByClassName("line-hamburguer");
 let toggleBar = document.getElementById("toggle-bar");
 let imageIntro = document.querySelector(".image-intro");
+let wrap = document.querySelector("#wrap");
 hamburguer.addEventListener("click", function () {
 	lines[1].classList.toggle("middle-line");
 	lines[0].classList.toggle("first-line");
@@ -41,6 +42,12 @@ newList.forEach(element => {
 		elemento[0].setAttribute("style", "font-weight: bold");
 	})
 });
+wrap.addEventListener("click", function () {
+	toggleBar.classList.remove("visible");
+	lines[1].classList.remove("middle-line");
+	lines[0].classList.remove("first-line");
+	lines[2].classList.remove("last-line");
+})
 window.onload = function (event) {
 	imageIntro.style.backgroundImage = "url('assets/images/fondo1.jpg')";
 	if (event.target.location.hash) {
@@ -124,7 +131,7 @@ filterArray.forEach((option) => {
 	});
 });
 
-// Bar percent
+// Bar percent graphic
 
 const barPercentNode = document.querySelectorAll(".bar .increasing-bar");
 const barPercentArray = [...barPercentNode];
@@ -238,7 +245,7 @@ function validarFormulario(event) {
 		btnEnviar.classList.remove("button-disable");
 		btnEnviar.disabled = false;
 	} else {
-		console.log("no pasaste la validación")
+		console.log("no pasaste la validación del formulario")
 	}
 }
 function mostrarError(mensaje) {
