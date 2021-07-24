@@ -1,6 +1,6 @@
 importScripts('https://cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js')
 const API_KEY = 'https://new.larry-jacobo.com/api/email';
-const STATIC_CACHE = 'static-v7';
+const STATIC_CACHE = 'static-v8';
 const DYNAMIC_CACHE = 'dynamic-v1';
 const INMUTABLE_CACHE = 'inmutable-v1';
 
