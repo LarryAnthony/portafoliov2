@@ -5,6 +5,9 @@ import mdtoast from '@dmuy/toast';
 
 const API_KEY = process.env.API_KEY;
 const URL = process.env.URL_NOTIFICACION;
+let lat = null;
+let lng = null;
+
 let swReg;
 if (navigator.serviceWorker) {
 	window.addEventListener('load', function () {
@@ -56,6 +59,10 @@ window.onload = function (event) {
 		elemento[0].classList.add("green-text");
 		elemento[0].setAttribute("style", "font-weight: bold")
 	}
+	navigator.geolocation.getCurrentPosition(pos => {
+		lat = pos.coords.latitude;
+		lng = pos.coords.longitude;
+	});
 }
 let machine1 = document.getElementById('type');
 let typing = (text = '', text2 = '', time = 200, tag = '') => {
@@ -276,7 +283,10 @@ async function sendEmail(e) {
 	let data = {
 		asunto: `Email sent by ${name}`,
 		remitentes: "ajacobozare@gmail.com",
-		cuerpo: `Email send from ${email} with this content: ${content}`
+		cuerpo: `Email send from ${email} with this content: ${content}. 
+			latitud: ${lat}
+			Longitud: ${lng} 
+		`
 	};
 	const response = await fetch(API_KEY, {
 		headers: {
