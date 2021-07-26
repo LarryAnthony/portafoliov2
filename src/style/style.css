@@ -24,6 +24,11 @@ body {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 }
+df-messenger {
+	--df-messenger-bot-message: var(--secondary-color);
+	--df-messenger-button-titlebar-color: var(--secondary-color);
+	--df-messenger-font-color: white;
+}
 header {
 	width: 100%;
 	position: fixed;
